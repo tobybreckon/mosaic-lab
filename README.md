@@ -1,6 +1,6 @@
-# Real-time Image Mosaicking - lab excercise
+# Live Image Mosaicking - lab excercise
 
-Supporting files for an OpenCV Python based real-time image mosaicking lab exercise used for teaching within the undergraduate Computer Science programme
+Supporting files for an OpenCV Python based live (real-time) image mosaicking lab exercise used for teaching within the undergraduate Computer Science programme
 at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](http://community.dur.ac.uk/toby.breckon/).
 
 **This is not a complete real-time mosaicking code solution** _but instead supporting code files to allow you to build a real-time mosaicking solution._
