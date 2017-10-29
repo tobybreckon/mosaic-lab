@@ -4,7 +4,7 @@
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
-# Acknowledgements: bmhr46@durham.ac.uk (2017);
+# Acknowledgements: bmhr46@durham.ac.uk (2016/17);
 # Marc Pare, code taken from:
 # https://github.com/marcpare/stitch/blob/master/crichardt/stitch.py
 
@@ -16,31 +16,30 @@
 
 #####################################################################
 
-#Takes two images and a Hessian threshold value and
-#returns the SURF features points and descriptors of each image
+# Takes an image and a Hessian threshold value and
+# returns the SURF features points (kp) and descriptors (des) of image
+# (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
-def getFeatures(img1, img2, thresh):
+def getFeatures(img, thres):
     surf = cv2.xfeatures2d.SURF_create(thresh)
-    kp1, des1 = surf.detectAndCompute(img1,None)
-    kp2, des2 = None, None
-    if img2 is not None:
-        kp2, des2 = surf.detectAndCompute(img2,None)
-    return kp1, des1, kp2, des2
+    kp, des = surf.detectAndCompute(img,None)
+    return kp, des
 
 #####################################################################
 
-#Performs FLANN features matching of the two image's descriptors
-#returns 'good matches' based on their distance
+# Performs FLANN-based feature matching of descriptor from 2 images
+# returns 'good matches' based on their distance
+# typically number_of_checks = 50, match_ratio = 0.7
 
-def matchFeatures(des1, des2, nChecks):
+def matchFeatures(des1, des2, number_of_checks, match_ratio):
     index_params = dict(algorithm = 0, trees = 1) #FLANN_INDEX_KDTREE = 0
-    search_params = dict(checks = nChecks)
+    search_params = dict(checks = number_of_checks)
     flann = cv2.FlannBasedMatcher(index_params, search_params)
     matches = flann.knnMatch(des1, des2, k=2)
     matchesMask = [[0,0] for i in range(len(matches))]
     good_matches = [];
     for i,(m,n) in enumerate(matches):
-        if m.distance < GOOD_MATCH_RATIO*n.distance:   #filter out 'bad' matches
+        if m.distance < match_ratio*n.distance:   #filter out 'bad' matches
             matchesMask[i]=[1,0];
             good_matches.append(m);
     return good_matches
