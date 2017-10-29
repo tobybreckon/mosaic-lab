@@ -36,7 +36,7 @@ N.B. you may need to change the line near the top that specifies the camera devi
 
 Inspired and informed by the research work undertaken in:
 
-** [Real-time Construction and Visualization of Drift-Free Video Mosaics from Unconstrained Camera Motion](http://community.dur.ac.uk/toby.breckon/publications/papers/breszcz15mosaic.pdf)** (M. Breszcz, T.P. Breckon), In IET J. Engineering, IET, Volume 2015, No. 16, pp. 1-12, 2015 [[**demo**]](http://breckon.eu/toby/demos/mosaic) [[**pdf**]](http://community.dur.ac.uk/toby.breckon/publications/papers/breszcz15mosaic.pdf) [[**doi**]](http://dx.doi.org/10.1049/joe.2015.0016)
+[**Real-time Construction and Visualization of Drift-Free Video Mosaics from Unconstrained Camera Motion**](http://community.dur.ac.uk/toby.breckon/publications/papers/breszcz15mosaic.pdf) (M. Breszcz, T.P. Breckon), In IET J. Engineering, IET, Volume 2015, No. 16, pp. 1-12, 2015 [[**demo**]](http://breckon.eu/toby/demos/mosaic) [[**pdf**]](http://community.dur.ac.uk/toby.breckon/publications/papers/breszcz15mosaic.pdf) [[**doi**]](http://dx.doi.org/10.1049/joe.2015.0016)
 
 
 ---
