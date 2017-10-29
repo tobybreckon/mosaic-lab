@@ -19,6 +19,10 @@ import cv2
 import sys
 import numpy as np
 
+#####################################################################
+
+# import all the provided helper functions
+
 import mosaic_support
 
 #####################################################################
@@ -30,7 +34,6 @@ camera_to_use = 0; # 0 if you have one camera, 1 or > 1 otherwise
 
 # define video capture object
 
-
 cap = cv2.VideoCapture();
 
 # define display window names
@@ -38,7 +41,7 @@ cap = cv2.VideoCapture();
 windowNameLive = "Live Camera Input"; # window name
 windowNameMosaic = "Mosaic Output";
 
-# initially our mosaic is an empty image
+# initially our mosaic to an empty image
 
 mosaic = None;
 
