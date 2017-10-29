@@ -12,7 +12,7 @@ All tested with [OpenCV](http://www.opencv.org) 3.x and Python 3.x.
 ### Files:
 
 - _skeleton.py_ - an outline file with camera/video interface and commented outline of the bits you need to complete
-- _mosiac-support.py_ - a set of documented supporting functions
+- _mosaic_support.py_ - a set of documented supporting functions
 
 ---
 
