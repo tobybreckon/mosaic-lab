@@ -7,7 +7,7 @@
 
 # Base File Author : Toby Breckon, toby.breckon@durham.ac.uk
 
-# Studenr Author(s) : <INSERT NAMES>
+# Student Author(s) : <INSERT NAMES>
 
 # Copyright (c) 2017 Dept. Computer Science,
 #                    Durham University, UK
