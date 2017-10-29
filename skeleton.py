@@ -19,6 +19,8 @@ import cv2
 import sys
 import numpy as np
 
+import mosaic_support
+
 #####################################################################
 
 keep_processing = True;
@@ -58,13 +60,15 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
         if (cap.isOpened):
             ret, frame = cap.read();
 
+            # TODO - insert some mechanism to take very Nth frame only
+
             # when we reach the end of the video (file) exit cleanly
 
             if (ret == 0):
                 keep_processing = False;
                 continue;
 
-        # *** BEGIN outline of required mosaicking code ***
+        # *** BEGIN TODO - outline of required mosaicking code ***
 
         # detect features in current image
 
@@ -97,9 +101,10 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
             # continue to next frame (i.e. next loop iteration)
 
-        mosaic = frame; # REMOVE this line (here so code runs at first)
+        if (mosaic == None): # *** TODO REMOVE this part ***
+            mosaic = frame; # only here so code runs at first time
 
-        # *** END outline of required mosaicking code ***
+        # *** END TODO outline of required mosaicking code ***
 
         # display input and output (perhaps consider use of cv2.WND_PROP_FULLSCREEN)
 
