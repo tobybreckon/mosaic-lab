@@ -13,7 +13,7 @@
 # Copyright (c) 2017 Dept. Computer Science,
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
-=
+
 #####################################################################
 
 import cv2
