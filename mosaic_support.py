@@ -13,7 +13,7 @@
 # Copyright (c) 2017 Dept. Computer Science,
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
-
+=
 #####################################################################
 
 import cv2
@@ -26,7 +26,7 @@ import numpy as np
 # returns the SURF features points (kp) and descriptors (des) of image
 # (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
-# ** if SURF does not work on your system comment out SURF lines and  
+# ** if SURF does not work on your system comment out SURF lines and
 # uncomment ORB lines in the code below **
 
 def getFeatures(img, thres):
