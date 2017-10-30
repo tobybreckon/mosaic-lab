@@ -23,7 +23,16 @@ import numpy as np
 
 # import all the provided helper functions
 
-import mosaic_support
+import mosaic_support as ms
+
+#####################################################################
+
+# check OpenCV version and if extra modules are present
+
+print("OpenCV: " + cv2.__version__);
+print("OpenCV Extra Modules Present: " + str(ms.extraOpenCVModulesPresent()));
+print("Python: " + sys.version);
+print("\n");
 
 #####################################################################
 
