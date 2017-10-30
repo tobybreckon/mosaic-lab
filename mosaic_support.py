@@ -42,8 +42,25 @@ def getFeatures(img, thres):
 # returns 'good matches' based on their distance
 # typically number_of_checks = 50, match_ratio = 0.7
 
+# ** if SURF does not work on your system comment out SURF lines and
+# uncomment ORB lines in the code below **
+
 def matchFeatures(des1, des2, number_of_checks, match_ratio):
-    index_params = dict(algorithm = 0, trees = 1) #FLANN_INDEX_KDTREE = 0
+
+    # if using SURF points use
+    index_params = dict(algorithm = 1, trees = 1) #FLANN_INDEX_KDTREE = 0
+
+    # if using ORB points
+    # taken from: https://docs.opencv.org/3.3.0/dc/dc3/tutorial_py_matcher.html
+    # N.B. "commented values are recommended as per the docs,
+    # but it didn't provide required results in some cases"
+
+    # FLANN_INDEX_LSH = 6
+    # index_params= dict(algorithm = FLANN_INDEX_LSH,
+    #               table_number = 6, # 12
+    #               key_size = 12,     # 20
+    #               multi_probe_level = 1) #2
+
     search_params = dict(checks = number_of_checks)
     flann = cv2.FlannBasedMatcher(index_params, search_params)
     matches = flann.knnMatch(des1, des2, k=2)
