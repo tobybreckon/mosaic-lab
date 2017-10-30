@@ -33,7 +33,7 @@ def extraOpenCVModulesPresent():
 # (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
 # if SURF does not work on your system, auto-fallback to ORB
-# [this could be optimized for a given system configuration]
+# [this could be optimized for a specific system configuration]
 
 def getFeatures(img, thres):
 
@@ -61,8 +61,8 @@ def getFeatures(img, thres):
 # returns 'good matches' based on their distance
 # typically number_of_checks = 50, match_ratio = 0.7
 
-# ** if SURF does not work on your system comment out SURF lines and
-# uncomment ORB lines in the code below **
+# if SURF does not work on your system, auto-fallback to ORB
+# [this could be optimized for a specific system configuration]mm
 
 def matchFeatures(des1, des2, number_of_checks, match_ratio):
 
