@@ -24,8 +24,16 @@ import numpy as np
 # check if the OpenCV we are using has the extra modules available
 
 def extraOpenCVModulesPresent():
-    (is_built, not_built) = cv2.getBuildInformation().split("Disabled:")
-    return ('xfeatures2d' in is_built);
+
+    # we only need to check this once and remember the result
+    # so we can do this via a stored function attribute (static variable)
+    # which is preserved across calls
+
+    if not hasattr(extraOpenCVModulesPresent, "already_checked"):
+        (is_built, not_built) = cv2.getBuildInformation().split("Disabled:")
+        already_checked = ('xfeatures2d' in is_built);
+
+    return already_checked;
 
 #####################################################################
 
