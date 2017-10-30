@@ -1,4 +1,4 @@
-# Live Image Mosaicking - lab excercise
+# Live Image Mosaicking - lab exercise
 
 Supporting files for an OpenCV Python based live (real-time) image mosaicking lab exercise used for teaching within the undergraduate Computer Science programme
 at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](http://community.dur.ac.uk/toby.breckon/).
