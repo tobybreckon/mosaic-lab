@@ -38,19 +38,17 @@ def extraOpenCVModulesPresent():
 
 def getFeatures(img, thres):
 
-    # check which features we have available
 
     if (extraOpenCVModulesPresent()):
 
         # if we have SURF available then use it
-
         surf = cv2.xfeatures2d.SURF_create(thres);
         kp, des = surf.detectAndCompute(img,None);
+        # check which features we have available
 
     else:
 
         # otherwise fall back to ORB
-
         orb = cv2.ORB_create()
         kp, des = orb.detectAndCompute(img,None)
 
@@ -63,7 +61,7 @@ def getFeatures(img, thres):
 # typically number_of_checks = 50, match_ratio = 0.7
 
 # if SURF does not work on your system, auto-fallback to ORB
-# [this could be optimized for a specific system configuration]mm
+# [this could be optimized for a specific system configuration]
 
 def matchFeatures(des1, des2, number_of_checks, match_ratio):
 
@@ -72,7 +70,6 @@ def matchFeatures(des1, des2, number_of_checks, match_ratio):
     if (extraOpenCVModulesPresent()):
 
         # assume we are using SURF points use
-
         index_params = dict(algorithm = 1, trees = 1) #FLANN_INDEX_KDTREE = 0
 
     else:
@@ -88,14 +85,22 @@ def matchFeatures(des1, des2, number_of_checks, match_ratio):
                         key_size = 12,     # 20
                         multi_probe_level = 1) #2
 
+    # set up and use a FLANN matcher (reset each time it is used)
     search_params = dict(checks = number_of_checks)
     flann = cv2.FlannBasedMatcher(index_params, search_params)
     matches = flann.knnMatch(des1, des2, k=2)
-    matchesMask = [[0,0] for i in range(len(matches))]
     good_matches = [];
-    for i,(m,n) in enumerate(matches):
+
+    # as the available number of matches recovered varies with the scene
+    # and hence the number features detected the following can fail under
+    # certain conditions (i.e. not enough matches found).
+    # suggestion 1: heavily filter / control number of feature + matches going
+    # into this next section of code
+    # suggestion 2: wrap the following in a try/catch construct
+    # https://docs.python.org/3/tutorial/errors.html
+
+    for (m,n) in matches:
         if m.distance < match_ratio*n.distance:   #filter out 'bad' matches
-            matchesMask[i]=[1,0];
             good_matches.append(m);
     return good_matches
 
@@ -105,10 +110,13 @@ def matchFeatures(des1, des2, number_of_checks, match_ratio):
 # of keypoints relating to image 1 (kp1) and (kp2)
 
 def computeHomography(kp1, kp2, good_matches):
-    #compute the transformation
+
+    # set up point lists
     pts1 = np.float32([ kp1[m.queryIdx].pt for m in good_matches ]).reshape(-1,1,2);
     pts2 = np.float32([ kp2[m.trainIdx].pt for m in good_matches ]).reshape(-1,1,2);
-    homography, mask = cv2.findHomography(pts1, pts2, cv2.RANSAC, 5.0)      #using RANSAC to find homography
+
+    #compute the transformation using RANSAC to find homography
+    homography, mask = cv2.findHomography(pts1, pts2, cv2.RANSAC, 5.0)
     return homography, mask
 
 #####################################################################
@@ -119,6 +127,7 @@ def computeHomography(kp1, kp2, good_matches):
 
 def calculate_size(size_image1, size_image2, homography):
 
+    # setup width and height
     (h1, w1) = size_image1[:2]
     (h2, w2) = size_image2[:2]
 
