@@ -23,7 +23,7 @@ Download each file as needed or to download the entire repository and run each t
 ```
 git clone https://github.com/tobybreckon/mosaic-lab.git
 cd mosaic-lab
-python3 ./mosaic-lab.py [optional video file]
+python3 ./skeleton.py [optional video file]
 ```
 
 Runs with a webcam connected or from a command line supplied video file of a format OpenCV supports on your system (otherwise edit the script to provide your own image source).
