@@ -26,9 +26,14 @@ import numpy as np
 # returns the SURF features points (kp) and descriptors (des) of image
 # (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
+# ** if SURF does not work on your system comment out SURF lines and  
+# uncomment ORB lines in the code below **
+
 def getFeatures(img, thres):
     surf = cv2.xfeatures2d.SURF_create(thres)
     kp, des = surf.detectAndCompute(img,None)
+    # orb = cv2.ORB_create()
+    # kp, des = orb.detectAndCompute(img,None)
     return kp, des
 
 #####################################################################
