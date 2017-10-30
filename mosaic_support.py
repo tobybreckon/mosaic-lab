@@ -24,7 +24,8 @@ import numpy as np
 # check if the OpenCV we are using has the extra modules available
 
 def extraOpenCVModulesPresent():
-    return ('xfeatures2d' in cv2.getBuildInformation());
+    (is_built, not_built) = cv2.getBuildInformation().split("Disabled:")
+    return ('xfeatures2d' in is_built);
 
 #####################################################################
 
