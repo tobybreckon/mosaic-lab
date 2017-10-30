@@ -21,19 +21,38 @@ import numpy as np
 
 #####################################################################
 
+# check if the OpenCV we are using has the extra modules available
+
+def extraOpenCVModulesPresent():
+    return ('xfeatures2d' in cv2.getBuildInformation());
+
+#####################################################################
 
 # Takes an image and a Hessian threshold value and
 # returns the SURF features points (kp) and descriptors (des) of image
 # (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
-# ** if SURF does not work on your system comment out SURF lines and
-# uncomment ORB lines in the code below **
+# if SURF does not work on your system, auto-fallback to ORB
+# [this could be optimized for a given system configuration]
 
 def getFeatures(img, thres):
-    surf = cv2.xfeatures2d.SURF_create(thres)
-    kp, des = surf.detectAndCompute(img,None)
-    # orb = cv2.ORB_create()
-    # kp, des = orb.detectAndCompute(img,None)
+
+    # check which features we have available
+
+    if (extraOpenCVModulesPresent()):
+
+        # if we have SURF available then use it
+
+        surf = cv2.xfeatures2d.SURF_create(thres);
+        kp, des = surf.detectAndCompute(img,None);
+
+    else:
+
+        # otherwise fall back to ORB
+
+        orb = cv2.ORB_create()
+        kp, des = orb.detectAndCompute(img,None)
+
     return kp, des
 
 #####################################################################
@@ -47,19 +66,26 @@ def getFeatures(img, thres):
 
 def matchFeatures(des1, des2, number_of_checks, match_ratio):
 
-    # if using SURF points use
-    index_params = dict(algorithm = 1, trees = 1) #FLANN_INDEX_KDTREE = 0
+    # check which features we have available / are using
 
-    # if using ORB points
-    # taken from: https://docs.opencv.org/3.3.0/dc/dc3/tutorial_py_matcher.html
-    # N.B. "commented values are recommended as per the docs,
-    # but it didn't provide required results in some cases"
+    if (extraOpenCVModulesPresent()):
 
-    # FLANN_INDEX_LSH = 6
-    # index_params= dict(algorithm = FLANN_INDEX_LSH,
-    #               table_number = 6, # 12
-    #               key_size = 12,     # 20
-    #               multi_probe_level = 1) #2
+        # assume we are using SURF points use
+
+        index_params = dict(algorithm = 1, trees = 1) #FLANN_INDEX_KDTREE = 0
+
+    else:
+
+        # if using ORB points
+        # taken from: https://docs.opencv.org/3.3.0/dc/dc3/tutorial_py_matcher.html
+        # N.B. "commented values are recommended as per the docs,
+        # but it didn't provide required results in some cases"
+
+        FLANN_INDEX_LSH = 6
+        index_params= dict(algorithm = FLANN_INDEX_LSH,
+                        table_number = 6, # 12
+                        key_size = 12,     # 20
+                        multi_probe_level = 1) #2
 
     search_params = dict(checks = number_of_checks)
     flann = cv2.FlannBasedMatcher(index_params, search_params)
