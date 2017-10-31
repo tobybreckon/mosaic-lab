@@ -95,8 +95,10 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
             # else
 
                 # get features in current mosaic (or similar)
-
                 # (may need to check features are found, or can assume OK)
+
+                # compute matches between current image and mosaic
+                # (cv2.drawMatches() may be useful for debugging here)
 
                 # compute homography H between current image and mosaic
 
@@ -110,6 +112,7 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
                 # so it fits on screen or scale in porportion to screen size
 
         # else when not enough features present in image
+            # (cv2.drawKeypoints() may be useful for debugging here)
 
             # continue to next frame (i.e. next loop iteration)
 
