@@ -37,7 +37,7 @@ def extraOpenCVModulesPresent():
 
 #####################################################################
 
-# Takes an image and a Hessian threshold value and
+# Takes an image and a threshold value and
 # returns the SURF features points (kp) and descriptors (des) of image
 # (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
@@ -49,15 +49,15 @@ def getFeatures(img, thres):
 
     if (extraOpenCVModulesPresent()):
 
-        # if we have SURF available then use it
-        surf = cv2.xfeatures2d.SURF_create(thres);
+        # if we have SURF available then use it (with Hessian Threshold = thres)
+        surf = cv2.xfeatures2d.SURF_create(thes);
         kp, des = surf.detectAndCompute(img,None);
         # check which features we have available
 
     else:
 
-        # otherwise fall back to ORB
-        orb = cv2.ORB_create()
+        # otherwise fall back to ORB (with Max Features = thres)
+        orb = cv2.ORB_create(thres)
         kp, des = orb.detectAndCompute(img,None)
 
     return kp, des
