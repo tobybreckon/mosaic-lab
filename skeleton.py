@@ -116,7 +116,7 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
             # continue to next frame (i.e. next loop iteration)
 
-        if (mosaic == None): # *** TODO REMOVE this part ***
+        if (mosaic is None): # *** TODO REMOVE this part ***
             mosaic = frame; # only here so code runs at first time
 
         # *** END TODO outline of required mosaicking code ***
