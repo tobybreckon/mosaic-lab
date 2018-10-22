@@ -5,7 +5,7 @@ at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](htt
 
 **This is not a complete real-time mosaicking code solution** _but instead supporting code files to allow you to build a real-time mosaicking solution._
 
-All tested with [OpenCV](http://www.opencv.org) 3.x and Python 3.x.
+All tested with [OpenCV](http://www.opencv.org) 3.4.x and Python 3.x.
 
 ---
 
