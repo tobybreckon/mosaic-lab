@@ -34,6 +34,19 @@ def extraOpenCVModulesPresent():
 
     return extraOpenCVModulesPresent.already_checked;
 
+def nonFreeAlgorithmsPresent():
+
+    # we only need to check this once and remember the result
+    # so we can do this via a stored function attribute (static variable)
+    # which is preserved across calls
+
+    if not hasattr(nonFreeAlgorithmsPresent, "already_checked"):
+        (before, after) = cv2.getBuildInformation().split("Non-free algorithms:");
+        output_list = after.split("\n");
+        nonFreeAlgorithmsPresent.already_checked = ('YES' in output_list[0]);
+
+    return nonFreeAlgorithmsPresent.already_checked;
+
 #####################################################################
 
 # Takes an image and a threshold value and
@@ -46,7 +59,7 @@ def extraOpenCVModulesPresent():
 def getFeatures(img, thres):
 
 
-    if (extraOpenCVModulesPresent()):
+    if (nonFreeAlgorithmsPresent()):
 
         # if we have SURF available then use it (with Hessian Threshold = thres)
         surf = cv2.xfeatures2d.SURF_create(thes);
@@ -74,7 +87,7 @@ def matchFeatures(des1, des2, number_of_checks, match_ratio):
 
     # check which features we have available / are using
 
-    if (extraOpenCVModulesPresent()):
+    if (nonFreeAlgorithmsPresent()):
 
         # assume we are using SURF points use
         index_params = dict(algorithm = 1, trees = 1) #FLANN_INDEX_KDTREE = 0

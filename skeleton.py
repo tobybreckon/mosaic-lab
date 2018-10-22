@@ -31,8 +31,9 @@ import mosaic_support as ms
 
 print("OpenCV: " + cv2.__version__);
 print("OpenCV Extra Modules Present: " + str(ms.extraOpenCVModulesPresent()));
+print("OpenCV Non-Free Algorithms Present: " + str(ms.nonFreeAlgorithmsPresent()));
 print("Python: " + sys.version);
-print("\n");
+print();
 
 #####################################################################
 
