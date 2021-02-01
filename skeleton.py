@@ -17,7 +17,6 @@
 
 import cv2
 import sys
-import numpy as np
 
 #####################################################################
 
@@ -29,57 +28,58 @@ import mosaic_support as ms
 
 # check OpenCV version and if extra modules are present
 
-print("OpenCV: " + cv2.__version__);
-print("OpenCV Extra Modules Present: " + str(ms.extraOpenCVModulesPresent()));
-print("OpenCV Non-Free Algorithms Present: " + str(ms.nonFreeAlgorithmsPresent()));
-print("Python: " + sys.version);
-print();
+print("OpenCV: " + cv2.__version__)
+print("OpenCV Extra Modules Present: " + str(ms.extraOpenCVModulesPresent()))
+print("OpenCV Non-Free Algorithms Present: " +
+      str(ms.nonFreeAlgorithmsPresent()))
+print("Python: " + sys.version)
+print()
 
 #####################################################################
 
-keep_processing = True;
-camera_to_use = 0; # 0 if you have one camera, 1 or > 1 otherwise
+keep_processing = True
+camera_to_use = 0  # 0 if you have one camera, 1 or > 1 otherwise
 
 #####################################################################
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window names
 
-windowNameLive = "Live Camera Input"; # window name
-windowNameMosaic = "Mosaic Output";
+window_name_live = "Live Camera Input"  # window name
+window_name_mosaic = "Mosaic Output"
 
 # initially our mosaic to an empty image
 
-mosaic = None;
+mosaic = None
 
 # if command line arguments are provided try to read video_name
 # otherwise default to capture from attached camera
 
 if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
-    or (cap.open(camera_to_use))):
+        or (cap.open(camera_to_use))):
 
     # create windows by name (as resizable)
 
-    cv2.namedWindow(windowNameLive, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowNameMosaic, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(window_name_live, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name_mosaic, cv2.WINDOW_NORMAL)
 
     while (keep_processing):
 
         # if video file successfully open then read frame from video
 
         if (cap.isOpened):
-            ret, frame = cap.read();
+            ret, frame = cap.read()
 
             # TODO - insert some mechanism to take very Nth frame only
 
             # when we reach the end of the video (file) exit cleanly
 
             if (ret == 0):
-                keep_processing = False;
-                continue;
+                keep_processing = False
+                continue
 
         # *** BEGIN TODO - outline of required mosaicking code ***
 
@@ -117,38 +117,42 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
             # continue to next frame (i.e. next loop iteration)
 
-        if (mosaic is None): # *** TODO REMOVE this part ***
-            mosaic = frame; # only here so code runs at first time
+        if (mosaic is None):  # *** TODO REMOVE this part ***
+            mosaic = frame  # only here so code runs at first time
 
         # *** END TODO outline of required mosaicking code ***
 
-        # display input and output (perhaps consider use of cv2.WND_PROP_FULLSCREEN)
+        # display input and output (perhaps consider use of
+        # cv2.WND_PROP_FULLSCREEN)
 
-        cv2.imshow(windowNameLive,frame);
-        cv2.imshow(windowNameMosaic,mosaic);
+        cv2.imshow(window_name_live, frame)
+        cv2.imshow(window_name_mosaic, mosaic)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
+        # cv2.waitKey() is a keyboard binding function (argument is time in ms)
         # It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF
 
-        # It can also be set to detect specific key strokes by recording which key is pressed
+        # It can also be set to detect specific key strokes by recording which
+        # key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 
     cv2.destroyAllWindows()
 
 else:
-    print("No video file specified or camera connected.");
+    print("No video file specified or camera connected.")
 
 #####################################################################
