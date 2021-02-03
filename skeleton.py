@@ -73,8 +73,6 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
         if (cap.isOpened):
             ret, frame = cap.read()
 
-            # TODO - insert some mechanism to take very Nth frame only
-
             # when we reach the end of the video (file) exit cleanly
 
             if (ret == 0):
@@ -128,9 +126,9 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
         cv2.imshow(window_name_live, frame)
         cv2.imshow(window_name_mosaic, mosaic)
 
-        # start the event loop - wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
-        
-        key = cv2.waitKey(40) & 0xFF
+        # start the event loop - wait 500ms (i.e. 1000ms / 2 fps = 500 ms)
+
+        key = cv2.waitKey(500) & 0xFF
 
         # It can also be set to detect specific key strokes by recording which
         # key is pressed
