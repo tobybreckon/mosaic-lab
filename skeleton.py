@@ -29,9 +29,9 @@ import mosaic_support as ms
 # check OpenCV version and if extra modules are present
 
 print("OpenCV: " + cv2.__version__)
-print("OpenCV Extra Modules Present: " + str(ms.extraOpenCVModulesPresent()))
+print("OpenCV Extra Modules Present: " + str(ms.extra_opencv_modules_present()))
 print("OpenCV Non-Free Algorithms Present: " +
-      str(ms.nonFreeAlgorithmsPresent()))
+      str(ms.non_free_algorithms_present()))
 print("Python: " + sys.version)
 print()
 
@@ -51,7 +51,7 @@ cap = cv2.VideoCapture()
 window_name_live = "Live Camera Input"  # window name
 window_name_mosaic = "Mosaic Output"
 
-# initially our mosaic to an empty image
+# initially set our mosaic to an empty image
 
 mosaic = None
 
@@ -128,16 +128,8 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
         cv2.imshow(window_name_live, frame)
         cv2.imshow(window_name_mosaic, mosaic)
 
-        # start the event loop - essential
-
-        # cv2.waitKey() is a keyboard binding function (argument is time in ms)
-        # It waits for specified milliseconds for any keyboard event.
-        # If you press any key in that time, the program continues.
-        # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of
-        # multi-byte response)
-
-        # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        # start the event loop - wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        
         key = cv2.waitKey(40) & 0xFF
 
         # It can also be set to detect specific key strokes by recording which
