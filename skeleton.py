@@ -10,7 +10,7 @@
 # Student Author(s) : <INSERT NAMES>
 
 # Copyright (c) <YEAR> <INSERT NAMES>, Durham University, UK
-# Copyright (c) 2017/18 Toby Breckon, Durham University, UK
+# Copyright (c) 2017-21 Toby Breckon, Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
 
 #####################################################################
@@ -28,8 +28,9 @@ import mosaic_support as ms
 
 # check OpenCV version and if extra modules are present
 
-print("OpenCV: " + cv2.__version__)
-print("OpenCV Extra Modules Present: " + str(ms.extra_opencv_modules_present()))
+print("\nOpenCV: " + cv2.__version__)
+print("OpenCV Extra Modules Present: " +
+      str(ms.extra_opencv_modules_present()))
 print("OpenCV Non-Free Algorithms Present: " +
       str(ms.non_free_algorithms_present()))
 print("Python: " + sys.version)
