@@ -49,7 +49,7 @@ try:
     # to use a non-buffered camera stream (via a separate thread)
 
     import camera_stream
-    cap = camera_stream.CameraVideoStream(use_tapi=True)
+    cap = camera_stream.CameraVideoStream()
 
 except BaseException:
     # if not then just use OpenCV default
