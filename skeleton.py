@@ -46,7 +46,7 @@ keep_processing = True
 parser = argparse.ArgumentParser(
     description='Perform ' +
     sys.argv[0] +
-    ' mosiacking on incoming camera/video image')
+    ' operation on incoming camera/video image')
 parser.add_argument(
     "-c",
     "--camera_to_use",
