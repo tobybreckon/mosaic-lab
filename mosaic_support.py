@@ -206,7 +206,7 @@ def calculate_size(size_image1, size_image2, homography):
 #####################################################################
 
 # Merges two images given the homography, new combined size for a
-# combined mosiac/panorame and the translation offset vector between them
+# combined mosiac/panorama and the translation offset vector between them
 
 
 def merge_images(image1, image2, homography, size, offset):
