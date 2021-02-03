@@ -55,16 +55,25 @@ def non_free_algorithms_present():
 #####################################################################
 
 # Takes an image and a threshold value and
-# returns the SURF features points (kp) and descriptors (des) of image
+# returns the SIFT/SURF features points (kp) and descriptors (des) of image
 # (for SURF features - Hessian threshold of typically 400-1000 can be used)
 
-# if SURF does not work on your system, auto-fallback to ORB
-# [this could be optimized for a specific system configuration]
+# if SIFT/SURF does not work on your system, auto-fallback to ORB
+# [this could be optimized for a specific system configuration,
+# and also so as not to create these detector objects _every_ time ]
 
 
 def get_features(img, thres):
 
-    if (non_free_algorithms_present()):
+    (major, minor, _) = cv2.__version__.split(".")
+    if ((int(major) >= 4) and (int(minor) >= 4)):
+
+        # if we have SIFT available then use it (in main branch of OpenCV)
+
+        sift = cv2.SIFT_create()
+        kp, des = sift.detectAndCompute(img, None)
+
+    elif (non_free_algorithms_present()):
 
         # if we have SURF available then use it (with Hessian Threshold =
         # thres)
@@ -94,10 +103,12 @@ def match_features(des1, des2, number_of_checks, match_ratio):
 
     # check which features we have available / are using
 
-    if (non_free_algorithms_present()):
+    (major, minor, _) = cv2.__version__.split(".")
+    if (((int(major) >= 4) and (int(minor) >= 4)) or
+            (non_free_algorithms_present())):
 
-        # assume we are using SURF points use
-        index_params = dict(algorithm=1, trees=1)  # FLANN_INDEX_KDTREE = 0
+        # assume we are using SIFT/SURF points use
+        index_params = dict(algorithm=1, trees=1)  # FLANN_INDEX_KDTREE = 1
 
     else:
 
