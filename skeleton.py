@@ -44,7 +44,17 @@ camera_to_use = 0  # 0 if you have one camera, 1 or > 1 otherwise
 
 # define video capture object
 
-cap = cv2.VideoCapture()
+try:
+    # to use a non-buffered camera stream (via a separate thread)
+
+    import camera_stream
+    cap = camera_stream.CameraVideoStream(use_tapi=True)
+
+except BaseException:
+    # if not then just use OpenCV default
+
+    print("INFO: camera_stream class not found - camera input may be buffered")
+    cap = cv2.VideoCapture()
 
 # define display window names
 
