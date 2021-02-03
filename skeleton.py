@@ -161,9 +161,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         key = cv2.waitKey(500) & 0xFF
 
-        # It can also be set to detect specific key strokes by recording which
-        # key is pressed
-
+        # detect specific key strokes
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
