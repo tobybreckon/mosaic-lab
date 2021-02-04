@@ -223,10 +223,12 @@ def merge_images(image1, image2, homography, size, offset):
 
     homography = translation * homography
 
-    # draw the transformed image2
+    # draw the transformed image2 into the panorama
+
     cv2.warpPerspective(image2, homography, size, panorama)
 
-    # masking
+    # masking to work out overlaps
+
     mask_a = cv2.cvtColor(panorama[oy:h1 + oy, ox:ox + w1], cv2.COLOR_RGB2GRAY)
     mask_b = cv2.cvtColor(image1, cv2.COLOR_RGB2GRAY)
     a_and_b = cv2.bitwise_and(mask_a, mask_b)
@@ -237,11 +239,17 @@ def merge_images(image1, image2, homography, size, offset):
     b_nonoverlap_area_mask = cv2.threshold(mask_b, 1, 255, cv2.THRESH_BINARY)[
         1] - overlap_area_mask
 
+    # previous part of panorama (before this frame) - only (part of image1
+    # not covered by image2)
+
     ored = cv2.bitwise_or(panorama[oy:h1 +
                                    oy, ox:ox +
                                    w1], image1, mask=(b_nonoverlap_area_mask -
                                                       a_nonoverlap_area_mask))
+
     oredcorrect = cv2.subtract(ored, panorama[oy:h1 + oy, ox:ox + w1])
+
+    # final composition
 
     panorama[oy:h1 + oy, ox:ox +
              w1] = cv2.add(panorama[oy:h1 + oy, ox:ox + w1], oredcorrect)
