@@ -28,9 +28,27 @@ cd mosaic-lab
 python3 ./skeleton.py [optional video file]
 ```
 
-Runs with a webcam connected or from a command line supplied video file of a format OpenCV supports on your system (otherwise edit the script to provide your own image source).
+Runs with a webcam connected or from a command line supplied video file of a format OpenCV supports on your system (otherwise edit the script to provide your own image source) as follows.
 
-N.B. you may need to change the line near the top that specifies the camera device to use on some examples below - change "0" if you have one webcam, I have it set to "1" to skip my built-in laptop webcam and use the connected USB camera.
+
+
+```
+$ python3 ./generic_interface.py -h
+
+usage: skeleton.py [-h] [-c CAMERA_TO_USE] [-r RESCALE] [video_file]
+
+Perform ./skeleton.py operation on incoming camera/video image
+
+positional arguments:
+  video_file            specify optional video file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CAMERA_TO_USE, --camera_to_use CAMERA_TO_USE
+                        specify camera to use
+  -r RESCALE, --rescale RESCALE
+                        rescale image by this factor                        
+```
 
 ---
 
@@ -42,7 +60,7 @@ Inspired and informed by the research work undertaken in:
 
 ---
 
-If referencing these examples in your own work please use:
+If referencing this example in your own work please use:
 ```
 @Article{breszcz15mosaic,
   author = 	 {Breszcz, M. and Breckon, T.P.},
