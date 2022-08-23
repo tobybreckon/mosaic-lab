@@ -28,4 +28,4 @@ jobs:
     - name: Lint with flake8
       run: |
         # stop the build if there are Python PEP8 style, syntax errors, undefined names, unused imports ...
-        flake8 --ignore E275 . 
+        flake8 . 
