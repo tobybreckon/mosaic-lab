@@ -148,7 +148,7 @@ class CameraVideoStream:
             self.use_timestamps = True
         elif sys.platform.startswith('win'):        # MS Windows
             self.backend_default = cv2.CAP_DSHOW
-            self.use_timestamps = False 
+            self.use_timestamps = False
         elif sys.platform.startswith('darwin'):     # macOS
             self.backend_default = cv2.CAP_AVFOUNDATION
             self.use_timestamps = False
@@ -217,7 +217,8 @@ class CameraVideoStream:
             if not (self.suspend):
                 self.camera.grab()
                 latest_timestamp = self.camera.get(cv2.CAP_PROP_POS_MSEC)
-                if ((latest_timestamp > self.timestamp) or (self.use_timestamps == False)):
+                if ((latest_timestamp > self.timestamp)
+                        or (self.use_timestamps is False)):
                     (self.grabbed, self.frame) = self.camera.retrieve()
                     self.framecounter += 1
                     logging.info("GRAB - frame %d @ time %f",
