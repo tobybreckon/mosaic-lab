@@ -10,7 +10,7 @@
 
 # no claims are made that these functions are completely bug free
 
-# Copyright (c) 2017-21 Toby Breckon, Durham University, UK
+# Copyright (c) 2017-25 Toby Breckon, Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
 
 #####################################################################
@@ -207,7 +207,7 @@ def calculate_size(size_image1, size_image2, homography):
 #####################################################################
 
 # Merges two images given the homography, new combined size for a
-# combined mosiac/panorama and the translation offset vector between them
+# combined mosaic/panorama and the translation offset vector between them
 
 
 def merge_images(image_mosaic, image_frame, homography, size, offset):
