@@ -64,22 +64,23 @@ def non_free_algorithms_present():
 
 
 def get_features(img, thres):
+    
+    # check which features we have available
 
     (major, minor, _) = cv2.__version__.split(".")
     if ((int(major) >= 4) and (int(minor) >= 4)):
 
-        # if we have SIFT available then use it (in main branch of OpenCV)
+        # if we have SIFT available then use it (in main branch OpenCV > 4.4)
 
         sift = cv2.SIFT_create()
         kp, des = sift.detectAndCompute(img, None)
-
+    
     elif (non_free_algorithms_present()):
 
         # if we have SURF available then use it (with Hessian Threshold =
         # thres)
         surf = cv2.xfeatures2d.SURF_create(thres)
         kp, des = surf.detectAndCompute(img, None)
-        # check which features we have available
 
     else:
 
@@ -145,7 +146,7 @@ def match_features(des1, des2, number_of_checks, match_ratio):
 #####################################################################
 
 # Computes and returns the homography matrix H relating the two sets
-# of keypoints relating to image 1 (kp1) and (kp2)
+# of keypoints relating to image 1 (kp1) and image 2 (kp2)
 
 
 def compute_homography(kp1, kp2, good_matches):
@@ -209,9 +210,9 @@ def calculate_size(size_image1, size_image2, homography):
 # combined mosiac/panorama and the translation offset vector between them
 
 
-def merge_images(image1, image2, homography, size, offset):
-    (h1, w1) = image1.shape[:2]
-    (h2, w2) = image2.shape[:2]
+def merge_images(image_mosaic, image_frame, homography, size, offset):
+    (h1, w1) = image_mosaic.shape[:2]
+    (h2, w2) = image_frame.shape[:2]
 
     panorama = np.zeros((size[1], size[0], 3), np.uint8)
 
@@ -225,12 +226,12 @@ def merge_images(image1, image2, homography, size, offset):
 
     # draw the transformed image2 into the panorama
 
-    cv2.warpPerspective(image2, homography, size, panorama)
+    cv2.warpPerspective(image_frame, homography, size, panorama)
 
     # masking to work out overlaps
 
     mask_a = cv2.cvtColor(panorama[oy:h1 + oy, ox:ox + w1], cv2.COLOR_RGB2GRAY)
-    mask_b = cv2.cvtColor(image1, cv2.COLOR_RGB2GRAY)
+    mask_b = cv2.cvtColor(image_mosaic, cv2.COLOR_RGB2GRAY)
     a_and_b = cv2.bitwise_and(mask_a, mask_b)
     overlap_area_mask = cv2.threshold(a_and_b, 1, 255, cv2.THRESH_BINARY)[1]
 
@@ -244,7 +245,7 @@ def merge_images(image1, image2, homography, size, offset):
 
     ored = cv2.bitwise_or(panorama[oy:h1 +
                                    oy, ox:ox +
-                                   w1], image1, mask=(b_nonoverlap_area_mask -
+                                   w1], image_mosaic, mask=(b_nonoverlap_area_mask -
                                                       a_nonoverlap_area_mask))
 
     oredcorrect = cv2.subtract(ored, panorama[oy:h1 + oy, ox:ox + w1])
