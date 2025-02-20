@@ -64,7 +64,7 @@ def non_free_algorithms_present():
 
 
 def get_features(img, thres):
-    
+
     # check which features we have available
 
     (major, minor, _) = cv2.__version__.split(".")
@@ -74,7 +74,7 @@ def get_features(img, thres):
 
         sift = cv2.SIFT_create()
         kp, des = sift.detectAndCompute(img, None)
-    
+
     elif (non_free_algorithms_present()):
 
         # if we have SURF available then use it (with Hessian Threshold =
@@ -243,10 +243,9 @@ def merge_images(image_mosaic, image_frame, homography, size, offset):
     # previous part of panorama (before this frame) - only (part of image1
     # not covered by image2)
 
-    ored = cv2.bitwise_or(panorama[oy:h1 +
-                                   oy, ox:ox +
-                                   w1], image_mosaic, mask=(b_nonoverlap_area_mask -
-                                                      a_nonoverlap_area_mask))
+    ored = cv2.bitwise_or(panorama[oy:h1 + oy, ox:ox + w1], image_mosaic,
+                          mask=(b_nonoverlap_area_mask
+                                - a_nonoverlap_area_mask))
 
     oredcorrect = cv2.subtract(ored, panorama[oy:h1 + oy, ox:ox + w1])
 

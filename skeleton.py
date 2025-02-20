@@ -177,10 +177,16 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         key = cv2.waitKey(500) & 0xFF
 
         # detect specific key strokes
-        # e.g. if user presses "x" then exit
+        # "x" = exit; "f" = fullscreen
 
         if (key == ord('x')):
             keep_processing = False
+        elif (key == ord('f')):
+            cv2.setWindowProperty(
+                window_name_mosaic,
+                cv2.WND_PROP_FULLSCREEN,
+                float(not (cv2.getWindowProperty(window_name_mosaic,
+                                                 cv2.WND_PROP_FULLSCREEN))))
 
     # close all windows
 
