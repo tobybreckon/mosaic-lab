@@ -10,7 +10,7 @@
 # Student Author(s) : <INSERT NAMES>
 
 # Copyright (c) <YEAR> <INSERT NAMES>, Durham University, UK
-# Copyright (c) 2017-21 Toby Breckon, Durham University, UK
+# Copyright (c) 2017-25 Toby Breckon, Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
 
 #####################################################################
